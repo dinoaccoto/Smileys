@@ -14,6 +14,13 @@ st.markdown("""
         margin-top: -10px;
         margin-bottom: -10px;
     }
+    /* Allinea verticalmente il contenuto delle colonne */
+    .vertical-align {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -252,40 +259,38 @@ if st.session_state.i < len(st.session_state.smiles_lista):
     st.session_state.smiles_corrente = (occhi, bocca)
 
     # Disegna la faccina corrente e mostra i pulsanti ai lati
-    with st.container():
-        col1, col2, col3 = st.columns([1, 2, 1])
+    cols = st.columns([1, 2, 1])
 
-        # Colonna sinistra per i primi 5 pulsanti
-        with col1:
-            for espressione in espressioni[:5]:
-                st.button(
-                    espressione,
-                    key=espressione + str(st.session_state.i),
-                    on_click=emotion_button_pressed,
-                    args=(espressione,),
-                )
-
-        # Colonna centrale per la faccina
-        with col2:
-            st.markdown(
-                """
-                <div style="display: flex; justify-content: center; align-items: center;">
-                """,
-                unsafe_allow_html=True,
+    # Colonna sinistra per i primi 5 pulsanti
+    with cols[0]:
+        st.markdown('<div class="vertical-align">', unsafe_allow_html=True)
+        for espressione in espressioni[:5]:
+            st.button(
+                espressione,
+                key=espressione + str(st.session_state.i),
+                on_click=emotion_button_pressed,
+                args=(espressione,),
             )
-            fig = disegna_faccina(occhi, bocca)
-            st.pyplot(fig)
-            st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-        # Colonna destra per gli ultimi 5 pulsanti
-        with col3:
-            for espressione in espressioni[5:]:
-                st.button(
-                    espressione,
-                    key=espressione + str(st.session_state.i),
-                    on_click=emotion_button_pressed,
-                    args=(espressione,),
-                )
+    # Colonna centrale per la faccina
+    with cols[1]:
+        st.markdown('<div class="vertical-align">', unsafe_allow_html=True)
+        fig = disegna_faccina(occhi, bocca)
+        st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # Colonna destra per gli ultimi 5 pulsanti
+    with cols[2]:
+        st.markdown('<div class="vertical-align">', unsafe_allow_html=True)
+        for espressione in espressioni[5:]:
+            st.button(
+                espressione,
+                key=espressione + str(st.session_state.i),
+                on_click=emotion_button_pressed,
+                args=(espressione,),
+            )
+        st.markdown('</div>', unsafe_allow_html=True)
 
 else:
     st.write("Hai completato tutte le faccine.")
