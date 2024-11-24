@@ -207,18 +207,16 @@ lato_figura = 10
 raggio_smiley = 6
 lam = raggio_smiley * 0.5  # Semi-larghezza della bocca
 
-# Lista delle espressioni
+# Lista delle espressioni senza "Delusa" e "Soddisfatta"
 espressioni = [
     "Triste",
     "Arrabbiata",
     "Preoccupata",
     "Impaurita",
-    "Delusa",
     "Felice",
     "Tranquilla",
     "Decisa",
     "Minacciosa",
-    "Soddisfatta",
 ]
 
 # Funzione per gestire il click sul pulsante
@@ -261,10 +259,10 @@ if st.session_state.i < len(st.session_state.smiles_lista):
     # Disegna la faccina corrente e mostra i pulsanti ai lati
     cols = st.columns([1, 2, 1])
 
-    # Colonna sinistra per i primi 5 pulsanti
+    # Colonna sinistra per i primi 4 pulsanti
     with cols[0]:
         st.markdown('<div class="vertical-align">', unsafe_allow_html=True)
-        for espressione in espressioni[:5]:
+        for espressione in espressioni[:4]:
             st.button(
                 espressione,
                 key=espressione + str(st.session_state.i),
@@ -280,10 +278,10 @@ if st.session_state.i < len(st.session_state.smiles_lista):
         st.pyplot(fig)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # Colonna destra per gli ultimi 5 pulsanti
+    # Colonna destra per gli ultimi 4 pulsanti
     with cols[2]:
         st.markdown('<div class="vertical-align">', unsafe_allow_html=True)
-        for espressione in espressioni[5:]:
+        for espressione in espressioni[4:]:
             st.button(
                 espressione,
                 key=espressione + str(st.session_state.i),
