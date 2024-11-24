@@ -7,6 +7,16 @@ import os
 # Imposta la pagina in modalità "wide" per avere più spazio orizzontale
 st.set_page_config(layout="wide")
 
+# Custom CSS per ridurre la spaziatura verticale tra i pulsanti
+st.markdown("""
+    <style>
+    .stButton button {
+        margin-top: -10px;
+        margin-bottom: -10px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Funzione per generare una faccina
 def disegna_faccina(occhi, pbocca):
     # Crea la figura e gli assi
@@ -136,7 +146,7 @@ def crea_figura_registro(registro_modifiche, occhi_values, bocca_values, espress
 
     # Crea la legenda e spostala per evitare sovrapposizioni
     legend_elements = [Patch(facecolor=expression_to_color[expr], label=expr) for expr in espressioni]
-    ax.legend(handles=legend_elements, loc='upper left', bbox_to_anchor=(1.05, 1), borderaxespad=0)
+    ax.legend(handles=legend_elements, loc='upper left', bbox_to_anchor=(1.15, 1), borderaxespad=0)
 
     ax.set_xlabel('Valori Bocca')
     ax.set_ylabel('Valori Occhi')
